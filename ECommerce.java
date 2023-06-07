@@ -1,7 +1,4 @@
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class ECommerce {
     public static void main(String[] args) {
@@ -22,28 +19,70 @@ public class ECommerce {
         cart.displayCart();
 
         // Removendo um produto do carrinho
-        cart.removeProduct(notebook);
+        //cart.removeProduct(notebook);
 
         // Exibindo o carrinho de compras atualizado
         cart.displayCart();
+
 
         // Métodos de pagamento
         PaymentMethod pix = new Pix();
         PaymentMethod boleto = new Boleto();
         PaymentMethod cartaoCredito = new CartaoCredito(10);
 
+        //Variedade de itens
+        double totalAmount = cart.calculateTotal();
+
+
+
+        // Solicitando a escolha do método de pagamento
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escolha o método de pagamento: ");
+        System.out.println("1 - Pix");
+        System.out.println("2 - Boleto");
+        System.out.println("3 - Cartão de Crédito");
+
+        int paymentMethod = scanner.nextInt();
+
         // Realizando o pagamento via Pix
-        cart.efetuarPagamento(pix);
+        pix.efetuarPagamento(totalAmount);
 
         // Realizando o pagamento via Boleto
-        cart.efetuarPagamento(boleto);
+        boleto.efetuarPagamento(totalAmount);
 
         // Realizando o pagamento via Cartão de Crédito
-        cart.efetuarPagamento(cartaoCredito);
+        cartaoCredito.efetuarPagamento(totalAmount);
+
+        // Verificando a escolha do usuário
+        switch (paymentMethod) {
+            case 1:
+                PaymentMethod pix = new Pix();
+                pix.efetuarPagamento(cart.calculateTotal());
+                break;
+            case 2:
+                PaymentMethod boleto = new Boleto();
+                boleto.efetuarPagamento(cart.calculateTotal());
+                break;
+            case 3:
+                PaymentMethod cartaoCredito = new CartaoCredito(10);
+                cartaoCredito.efetuarPagamento(cart.calculateTotal());
+                break;
+            default:
+                System.out.println("Opção inválida. Pagamento não efetuado.");
+                break;
+        }
+
+        scanner.close();
+
+
+
 
     }
 
 
 }
+
+
+
 
 
