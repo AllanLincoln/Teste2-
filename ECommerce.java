@@ -1,3 +1,8 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class ECommerce {
     public static void main(String[] args) {
         // Criando objetos de produtos
@@ -35,18 +40,6 @@ public class ECommerce {
 
         // Realizando o pagamento via Cartão de Crédito
         cart.efetuarPagamento(cartaoCredito);
-        
-         double valorParaSerExibido = 24.120398213112;
-
-        BigDecimal modelVal = new BigDecimal(valorParaSerExibido);
-        BigDecimal displayVal = modelVal.setScale(2, RoundingMode.HALF_EVEN);
-        Locale brazil = Locale.of("pt,BR");
-        NumberFormat brazilFormat = NumberFormat.getCurrencyInstance(brazil);
-        brazilFormat.setMinimumFractionDigits(2);
-        brazilFormat.setMaximumFractionDigits(2);
-
-        System.out.println(brazilFormat.format(displayVal.doubleValue()));
-
 
     }
 
