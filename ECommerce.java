@@ -35,6 +35,17 @@ public class ECommerce {
 
         // Realizando o pagamento via Cartão de Crédito
         cart.efetuarPagamento(cartaoCredito);
+        
+         double valorParaSerExibido = 24.120398213112;
+
+        BigDecimal modelVal = new BigDecimal(valorParaSerExibido);
+        BigDecimal displayVal = modelVal.setScale(2, RoundingMode.HALF_EVEN);
+        Locale brazil = Locale.of("pt,BR");
+        NumberFormat brazilFormat = NumberFormat.getCurrencyInstance(brazil);
+        brazilFormat.setMinimumFractionDigits(2);
+        brazilFormat.setMaximumFractionDigits(2);
+
+        System.out.println(brazilFormat.format(displayVal.doubleValue()));
 
 
     }
