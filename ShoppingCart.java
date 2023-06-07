@@ -34,13 +34,7 @@ public class ShoppingCart {
 
             System.out.println("Quantidade de produtos: " + products.size());
 
-            BigDecimal displayVal = total.setScale(2, RoundingMode.HALF_EVEN);
-            Locale brazil = Locale.of("pt","BR");
-            NumberFormat brazilFormat = NumberFormat.getCurrencyInstance(brazil);
-            brazilFormat.setMinimumFractionDigits(2);
-            brazilFormat.setMaximumFractionDigits(2);
-
-            System.out.println("Valor total: " + brazilFormat.format(displayVal.doubleValue()));
+            System.out.println("Valor total: " + CurrencyUtils.toBrazilianCurrency(total));
 
     }
 
