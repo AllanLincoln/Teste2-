@@ -24,7 +24,6 @@ public class ECommerce {
         // Exibindo o carrinho de compras atualizado
         cart.displayCart();
 
-
         // Métodos de pagamento
         PaymentMethod pix = new Pix();
         PaymentMethod boleto = new Boleto();
@@ -32,8 +31,6 @@ public class ECommerce {
 
         //Variedade de itens
         double totalAmount = cart.calculateTotal();
-
-
 
         // Solicitando a escolha do método de pagamento
         Scanner scanner = new Scanner(System.in);
@@ -44,42 +41,34 @@ public class ECommerce {
 
         int paymentMethod = scanner.nextInt();
 
-        // Realizando o pagamento via Pix
-        pix.efetuarPagamento(totalAmount);
-
-        // Realizando o pagamento via Boleto
-        boleto.efetuarPagamento(totalAmount);
-
-        // Realizando o pagamento via Cartão de Crédito
-        cartaoCredito.efetuarPagamento(totalAmount);
-
-        // Verificando a escolha do usuário
+        // Realizando o pagamento de acordo com o método escolhido
         switch (paymentMethod) {
             case 1:
-                PaymentMethod pix = new Pix();
+                PaymentMethod Pix = new Pix();
                 pix.efetuarPagamento(cart.calculateTotal());
                 break;
             case 2:
-                PaymentMethod boleto = new Boleto();
+                PaymentMethod Boleto = new Boleto();
                 boleto.efetuarPagamento(cart.calculateTotal());
                 break;
             case 3:
-                PaymentMethod cartaoCredito = new CartaoCredito(10);
-                cartaoCredito.efetuarPagamento(cart.calculateTotal());
-                break;
-            default:
-                System.out.println("Opção inválida. Pagamento não efetuado.");
+                System.out.println("Digite o número de parcelas (1 a 10):");
+                int numParcelas = scanner.nextInt();
+                if (numParcelas < 1 || numParcelas > 10) {
+                    System.out.println("Número de parcelas inválido. Pagamento não efetuado.");
+                } else {
+                    double valorParcela = cart.calculateTotal() / numParcelas;
+                    System.out.println("Valor da parcela: " + valorParcela);
+                    PaymentMethod CartaoCredito = new CartaoCredito(numParcelas);
+                    cartaoCredito.efetuarPagamento(valorParcela);
+                }
                 break;
         }
 
         scanner.close();
 
 
-
-
     }
-
-
 }
 
 
